@@ -26,7 +26,7 @@ Use one of the following commands:
 
     $ mina rbenv:setup
     $ mina rbenv:upgrade
-    $ mina rbenv:install
+    $ mina rbenv:install:<RUBY_VERSION>
 
 I also added a couple of new options you can set in order to specify the
 
