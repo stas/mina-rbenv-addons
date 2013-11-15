@@ -19,6 +19,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "mina"
 
-  spec.add_development_dependency "bundler", "~> 1.4"
+  spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
 end
