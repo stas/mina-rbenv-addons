@@ -5,7 +5,7 @@ require 'mina/rbenv'
 #
 # Change it if you want to upgrade or install a new ruby version.
 
-set_default :rbenv_ruby_version, "#{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}"
+set_default :rbenv_ruby_version, "#{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}".chomp('-p0')
 
 # ### rbenv_git_url
 # Sets the rbenv git url to clone
