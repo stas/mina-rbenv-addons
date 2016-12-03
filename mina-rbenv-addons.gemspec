@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "mina-rbenv-addons"
-  spec.version       = '0.1'
+  spec.version       = '0.2'
   spec.authors       = ["Stas SUȘCOV"]
   spec.email         = ["stas@nerd.ro"]
   spec.summary       = %q{Mina Rbenv addons.}
