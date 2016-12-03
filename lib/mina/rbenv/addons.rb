@@ -5,21 +5,21 @@ require 'mina/rbenv'
 #
 # Change it if you want to upgrade or install a new ruby version.
 
-set_default :rbenv_ruby_version, "#{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}".chomp('-p0')
+set :rbenv_ruby_version, "#{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}".chomp('-p0')
 
 # ### rbenv_git_url
 # Sets the rbenv git url to clone
 #
 # Change it if you want to use a fork
 
-set_default :rbenv_git_url, 'git://github.com/sstephenson/rbenv.git'
+set :rbenv_git_url, 'git://github.com/sstephenson/rbenv.git'
 
 # ### ruby_build_git_url
 # Sets the ruby-build git url to clone
 #
 # Change it if you want to use a fork
 
-set_default :ruby_build_git_url, 'git://github.com/sstephenson/ruby-build.git'
+set :ruby_build_git_url, 'git://github.com/sstephenson/ruby-build.git'
 
 
 # ## Tasks
@@ -29,11 +29,11 @@ set_default :ruby_build_git_url, 'git://github.com/sstephenson/ruby-build.git'
 # Installs the *rbenv* and *ruby-build* runtime.
 
 task :'rbenv:setup' do
-  ruby_build_path = "#{rbenv_path}/plugins/ruby-build"
-  queue %{
+  ruby_build_path = "#{fetch(:rbenv_path)}/plugins/ruby-build"
+  command %{
     echo "-----> Installing rbenv..."
-    #{echo_cmd %{git clone #{rbenv_git_url} #{rbenv_path}} }
-    #{echo_cmd %{git clone #{ruby_build_git_url} #{ruby_build_path}} }
+    #{echo_cmd %{git clone #{fetch(:rbenv_git_url)} #{fetch(:rbenv_path)}} }
+    #{echo_cmd %{git clone #{fetch(:ruby_build_git_url)} #{ruby_build_path}} }
   }
 end
 
@@ -41,10 +41,10 @@ end
 # Upgrades the *rbenv* and *ruby-build* runtime.
 
 task :'rbenv:upgrade' do
-  ruby_build_path = "#{rbenv_path}/plugins/ruby-build"
-  queue %{
+  ruby_build_path = "#{fetch(:rbenv_path)}/plugins/ruby-build"
+  command %{
     echo "-----> Upgrading rbenv and ruby-build..."
-    #{echo_cmd %{pushd #{rbenv_path}; git pull; popd} }
+    #{echo_cmd %{pushd #{fetch(:rbenv_path)}; git pull; popd} }
     #{echo_cmd %{pushd #{ruby_build_path}; git pull; popd} }
   }
 end
@@ -52,11 +52,11 @@ end
 # ### rbenv:install
 # Installs the ruby version.
 
-task :"rbenv:install:#{rbenv_ruby_version}" => :'rbenv:load' do
-  queue %{
-    echo "-----> Installing ruby-#{rbenv_ruby_version}..."
-    #{echo_cmd %{rbenv install #{rbenv_ruby_version}} }
-    #{echo_cmd %{rbenv local #{rbenv_ruby_version}} }
+task :"rbenv:install:#{fetch(:rbenv_ruby_version)}" => :'rbenv:load' do
+  command %{
+    echo "-----> Installing ruby-#{fetch(:rbenv_ruby_version)}..."
+    #{echo_cmd %{rbenv install #{fetch(:rbenv_ruby_version)}} }
+    #{echo_cmd %{rbenv local #{fetch(:rbenv_ruby_version)}} }
     #{echo_cmd %{rbenv rehash} }
     #{echo_cmd %{gem install bundler} }
     #{echo_cmd %{rbenv rehash} }
